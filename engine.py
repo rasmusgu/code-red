@@ -8,9 +8,11 @@ from render_functions import render_all, clear_all
 def main():
     
     # variables
-    screen_width = 80
     screen_height = 50
-    
+    screen_width = 80
+    map_height = 45
+    map_width = 80
+
     #player.x = int(screen_width / 2)
     #player.y = int(screen_height / 2)
     
