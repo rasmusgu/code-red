@@ -64,7 +64,8 @@ def main():
         # moves the character
         if move:
             dx, dy = move
-            player.move(dx, dy)
+            if not game_map.is_blocked(player.x + dx, player.y + dy):
+                player.move(dx, dy)
 
         # exits the game
         if exit:
