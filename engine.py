@@ -2,6 +2,8 @@ import tcod as libtcod
 
 from input_handlers import handle_keys
 from entity import Entity
+from render_functions import render_all, clear_all
+
 
 def main():
     
@@ -9,8 +11,8 @@ def main():
     screen_width = 80
     screen_height = 50
     
-    player.x = int(screen_width / 2)
-    player.y = int(screen_height / 2)
+    #player.x = int(screen_width / 2)
+    #player.y = int(screen_height / 2)
     
     player = Entity(int(screen_width / 2), int(screen_height / 2), '@', libtcod.white)
     npc = Entity(int(screen_width / 2 - 5), int(screen_height / 2), '@', libtcod.yellow)
@@ -35,18 +37,15 @@ def main():
         #captures inputs
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS, key, mouse)
         
-        # sets character colour
-        libtcod.console_set_default_foreground(con, libtcod.white)
-        # character console, xy, character, ?
-        libtcod.console_put_char(con, player.x, player.y, '@', libtcod.BKGND_NONE)
-        # screen variables
-        libtcod.console_blit(con, 0, 0, screen_width, screen_height, 0, 0, 0)
+        # renders all called upon entities
+        render_all(con, entities, screen_width, screen_height)
+
         # refreshes screen
         libtcod.console_flush()
         
-        # ? removes old character ?
-        libtcod.console_put_char(con, player.x, player.y, ' ', libtcod.BKGND_NONE)
-        
+        # makes so that characters don't leave trails
+        clear_all(con, entities)
+
         # new variable for handle_keys function from other file
         action = handle_keys(key)
         
