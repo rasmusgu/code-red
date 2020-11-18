@@ -12,6 +12,14 @@ class GameMap:
 
         return tiles
     
+    def make_map(self):
+        # Create two rooms for testin purposes
+        room1 = Rect(20, 15, 10, 15)
+        room2 = Rect(35, 15, 10, 15)
+
+        self.create_room(room1)
+        self.create_room(room2)
+
     def create_room(self, room):
         # makes passable tiles in a rectangle
         for x in range(room.x1 + 1, room.x2):
