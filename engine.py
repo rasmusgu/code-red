@@ -3,7 +3,7 @@ import tcod as libtcod
 from input_handlers import handle_keys
 from entity import Entity
 from render_functions import render_all, clear_all
-
+from map_objects.game_map import GameMap
 
 def main():
     
@@ -13,9 +13,11 @@ def main():
     map_height = 45
     map_width = 80
 
-    #player.x = int(screen_width / 2)
-    #player.y = int(screen_height / 2)
-    
+    colors = {
+        'dark_wall': libtcod.Color(0, 0, 100),
+        'dark_ground': libtcod.Color(50, 50, 150)
+    }
+
     player = Entity(int(screen_width / 2), int(screen_height / 2), '@', libtcod.white)
     npc = Entity(int(screen_width / 2 - 5), int(screen_height / 2), '@', libtcod.yellow)
     entities = [npc, player]
@@ -28,6 +30,9 @@ def main():
     
     # new console
     con = libtcod.console_new(screen_width, screen_height)
+    
+    # Initialise game map
+    game_map = GameMap(map_width, map_height)
 
     # input storage variables
     key = libtcod.Key()
