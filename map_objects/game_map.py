@@ -20,6 +20,7 @@ class GameMap:
 
         self.create_room(room1)
         self.create_room(room2)
+        self.create_h_tunnel(25, 40, 23)
 
     def create_room(self, room):
         # makes passable tiles in a rectangle
