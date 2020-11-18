@@ -26,6 +26,14 @@ class GameMap:
             # random position without going out of the boundaries of the map
             x = randint(0, map_width - w - 1)
             y = randint(0, map_height - h - 1)
+            
+            # "Rect" class makes rectangles easier to work with
+            new_room = Rect(x, y, w, h)
+
+            # Check other rooms and check if they intersect with this one
+            for other_room in rooms:
+                if new_room.intersect(other_room):
+                    break
 
     def create_room(self, room):
         # makes passable tiles in a rectangle
