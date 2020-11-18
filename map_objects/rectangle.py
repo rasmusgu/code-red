@@ -3,4 +3,4 @@ class Rect:
         self.x1 = x
         self.y1 = y
         self.x2 = x + w
-        self y2 = y + h
+        self.y2 = y + h

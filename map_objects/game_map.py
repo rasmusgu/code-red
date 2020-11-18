@@ -1,4 +1,5 @@
 from map_objects.tile import Tile
+from map_objects.rectangle import Rect
 
 class GameMap:
     def __init__(self, width, height):

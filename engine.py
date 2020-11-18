@@ -33,6 +33,7 @@ def main():
     
     # Initialise game map
     game_map = GameMap(map_width, map_height)
+    game_map.make_map()
 
     # input storage variables
     key = libtcod.Key()
