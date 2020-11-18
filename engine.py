@@ -45,7 +45,7 @@ def main():
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS, key, mouse)
         
         # renders all called upon entities
-        render_all(con, entities, screen_width, screen_height)
+        render_all(con, entities, game_map, screen_width, screen_height, colors)
 
         # refreshes screen
         libtcod.console_flush()
