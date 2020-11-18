@@ -14,13 +14,16 @@ class GameMap:
         return tiles
     
     def make_map(self):
-        # Create two rooms for testin purposes
-        room1 = Rect(20, 15, 10, 15)
-        room2 = Rect(35, 15, 10, 15)
-
-        self.create_room(room1)
-        self.create_room(room2)
-        self.create_h_tunnel(25, 40, 23)
+        rooms = []
+        num_rooms = 0
+        
+        for r in range(max_rooms):
+            # random width and height
+            w = randint(room_min_size, room_max_size)
+            h = randint(room_min_size, room_max_size)
+            # random position without going out of the boundaries of the map
+            x = randint(0, map_width - w - 1)
+            y = randint(0, map_height - h - 1)
 
     def create_room(self, room):
         # makes passable tiles in a rectangle
