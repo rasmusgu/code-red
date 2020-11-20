@@ -28,6 +28,8 @@ def main():
     # how far you can see
     fov_radius = 10
     
+    max_monsters_per_room = 3
+
     # Colors
     colors = {
         'dark_wall': libtcod.Color(0, 0, 100),
@@ -36,9 +38,8 @@ def main():
         'light_ground': libtcod.Color(200, 180, 50)
     }
 
-    player = Entity(int(screen_width / 2), int(screen_height / 2), '@', libtcod.white)
-    npc = Entity(int(screen_width / 2 - 5), int(screen_height / 2), '@', libtcod.yellow)
-    entities = [npc, player]
+    player = Entity(0, 0, '@', libtcod.white)
+    entities = [player]
 
     # font settings
     libtcod.console_set_custom_font('arial10x10.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD)
