@@ -29,7 +29,7 @@ class GameMap:
             w = randint(room_min_size, room_max_size)
             h = randint(room_min_size, room_max_size)
             #print("Room size: ", w, ", ", h)
-            print(r)
+            #print(r)
             # random position without going out of the boundaries of the map
             x = randint(0, map_width - w - 1)
             y = randint(0, map_height - h - 1)
