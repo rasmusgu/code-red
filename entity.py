@@ -2,9 +2,6 @@ import tcod as libtcod
 
 import math
 
-from render_functions import RenderOrder
-
-
 class Entity:
     """
     A generic object to represent players, enemies, items, etc.
@@ -15,8 +12,6 @@ class Entity:
         self.char = char
         self.color = color
         self.name = name
-        self.blocks = blocks
-        self.render_order = render_order
         self.fighter = fighter
         self.ai = ai
 
@@ -25,6 +20,9 @@ class Entity:
         
         if self.ai:
             self.ai.owner = self
+
+        # if blocks isn't passed on initialisation it's False by default
+        self.blocks = blocks
 
 
     def move(self, dx, dy):
