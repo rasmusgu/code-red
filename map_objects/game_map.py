@@ -27,14 +27,14 @@ class GameMap:
             # random width and height
             w = randint(room_min_size, room_max_size)
             h = randint(room_min_size, room_max_size)
-            print("Room size: ", w, ", ", h)
+            #print("Room size: ", w, ", ", h)
             print(r)
             # random position without going out of the boundaries of the map
             x = randint(0, map_width - w - 1)
             y = randint(0, map_height - h - 1)
-            print("Position: ", x, ", ", y)
-            print("Map width: ", map_width)
-            print("Map height: ", map_height)
+            #print("Position: ", x, ", ", y)
+            #print("Map width: ", map_width)
+            #print("Map height: ", map_height)
             
             # "Rect" class makes rectangles easier to work with
             new_room = Rect(x, y, w, h)
@@ -42,16 +42,16 @@ class GameMap:
             # Check other rooms and check if they intersect with this one
             for other_room in rooms:
                 if new_room.intersect(other_room):
-                    print("The new room intersected with an old one")
+                    #print("The new room intersected with an old one")
                     break
 
             else:
                 # if this code runs that means there are no intersections, so this room is valid
-                print("The new room did NOT intersect")
+                #print("The new room did NOT intersect")
 
                 # "paint" it to the map's tiles
                 self.create_room(new_room)
-                print("Made room (", num_rooms, ")")
+                #print("Made room (", num_rooms, ")")
 
                 # center coordinates of new room, will be useful later
                 (new_x, new_y) = new_room.center()
@@ -97,13 +97,13 @@ class GameMap:
         for x in range(min(x1, x2), max(x1, x2) + 1):
             self.tiles[x][y].blocked = False
             self.tiles[x][y].block_sight = False
-        print("Created h tunnel")
+        #print("Created h tunnel")
 
     def create_v_tunnel(self, y1, y2, x):
         for y in range(min(y1, y2), max(y1, y2) + 1):
             self.tiles[x][y].blocked = False
             self.tiles[x][y].block_sight = False
-        print("Created v tunnel")
+        #print("Created v tunnel")
     
     def place_entities(self, room, entities, max_monsters_per_room):
         # Get a random number of monsters
