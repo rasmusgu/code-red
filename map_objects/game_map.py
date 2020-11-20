@@ -103,7 +103,7 @@ class GameMap:
             self.tiles[x][y].block_sight = False
         print("Created v tunnel")
     
-    def place_entities(self, room,, entities, max_monsters_per_room):
+    def place_entities(self, room, entities, max_monsters_per_room):
         # Get a random number of monsters
         number_of_monsters = randint(0, max_monsters_per_room)
 

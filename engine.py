@@ -52,7 +52,7 @@ def main():
     
     # Initialise game map
     game_map = GameMap(map_width, map_height)
-    game_map.make_map(max_rooms, room_min_size, room_max_size, map_width, map_height, player)
+    game_map.make_map(max_rooms, room_min_size, room_max_size, map_width, map_height, player, entities, max_monsters_per_room)
     
     # Variable for whether fov check is necessary or not. For example, when standing still or attacking, fov recalculation is unnecessary. "True" by default because we need to compute fov as the game starts
     fov_recompute = True
