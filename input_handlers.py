@@ -13,6 +13,7 @@ def handle_keys(key):
         return {'move': (-1, 0)}
     elif key.vk == libtcod.KEY_RIGHT or key_char == 'l':
         return {'move': (1, 0)}
+    
     # Diagonal movement
     elif key_char == 'y':
         return {'move': (-1, -1)}
@@ -22,6 +23,10 @@ def handle_keys(key):
         return {'move': (-1, 1)}
     elif key_char == 'n':
         return {'move': (1, 1)}
+    
+    if key_char == 'g':
+        # Grab items
+        return {'pickup': True}
 
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen

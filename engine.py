@@ -9,7 +9,7 @@ from game_states import GameStates
 from components.fighter import Fighter
 from death_functions import kill_monster, kill_player
 from game_messages import MessageLog
-
+from components.inventory import Inventory
 
 
 def main():   
@@ -44,7 +44,8 @@ def main():
     fov_radius = 10
     
     max_monsters_per_room = 3
-
+    max_items_per_room = 2
+    
     # Colors
     colors = {
         'dark_wall': libtcod.Color(0, 0, 100),
@@ -54,7 +55,8 @@ def main():
     }
 
     fighter_component = Fighter(hp=30, defense=2, power=5)
-    player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component)
+    inventory_component = Inventory(26)
+    player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, inventory=inventory_component)
     entities = [player]
 
     # font settings
@@ -69,7 +71,7 @@ def main():
 
     # Initialise game map
     game_map = GameMap(map_width, map_height)
-    game_map.make_map(max_rooms, room_min_size, room_max_size, map_width, map_height, player, entities, max_monsters_per_room)
+    game_map.make_map(max_rooms, room_min_size, room_max_size, map_width, map_height, player, entities, max_monsters_per_room, max_items_per_room)
     
     # Variable for whether fov check is necessary or not. For example, when standing still or attacking, fov recalculation is unnecessary. "True" by default because we need to compute fov as the game starts
     fov_recompute = True
@@ -111,6 +113,7 @@ def main():
         
         # actions
         move = action.get('move')
+        pickup = action.get('pickup')
         exit = action.get('exit')
         fullscreen = action.get('fullscreen')
         
