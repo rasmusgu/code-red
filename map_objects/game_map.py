@@ -116,7 +116,7 @@ class GameMap:
                 if randint(0, 100) < 80:
                     monster = Entity(x, y, 'o', libtcod.desaturated_green)
                 else:
-                    monster = Entity(x, y, 'T', libtcod.darger_green)
+                    monster = Entity(x, y, 'T', libtcod.darker_green)
                 entities.append(monster)
 
     def is_blocked(self, x, y):
