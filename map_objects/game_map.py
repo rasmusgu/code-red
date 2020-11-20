@@ -10,7 +10,7 @@ class GameMap:
         self.tiles = self.initialize_tiles()
 
     def initialize_tiles(self):
-        # True makes all tiles by default UNWALKABLE
+        # 'True' makes all tiles by default UNWALKABLE/blocked
         tiles = [[Tile(True) for y in range(self.height)] for x in range(self.width)]
 
         return tiles
@@ -23,9 +23,14 @@ class GameMap:
             # random width and height
             w = randint(room_min_size, room_max_size)
             h = randint(room_min_size, room_max_size)
+            print("Room size: ", w, ", ", h)
+
             # random position without going out of the boundaries of the map
             x = randint(0, map_width - w - 1)
             y = randint(0, map_height - h - 1)
+            print("Position: ", x, ", ", y)
+            print("Map width: ", map_width)
+            print("Map height: ", map_height)
             
             # "Rect" class makes rectangles easier to work with
             new_room = Rect(x, y, w, h)
@@ -33,18 +38,22 @@ class GameMap:
             # Check other rooms and check if they intersect with this one
             for other_room in rooms:
                 if new_room.intersect(other_room):
+                    print("The new room intersected with an old one")
                     break
-            
+
             else:
                 # if this code runs that means there are no intersections, so this room is valid
+                print("The new room did NOT intersect")
+
                 # "paint" it to the map's tiles
                 self.create_room(new_room)
+                print("Made room (", num_rooms, ")")
 
                 # center coordinates of new room, will be useful later
                 (new_x, new_y) = new_room.center()
 
                 if num_rooms == 0:
-                        # this is the first room, where the player starts at            
+                    # this is the first room, where the player starts at            
                     player.x = new_x
                     player.y = new_y
 
@@ -55,11 +64,12 @@ class GameMap:
                     # center coordinates of previous room
                     (prev_x, prev_y) = rooms[num_rooms - 1].center()
 
-                    # flip a coin (random number that is either 0 or 1)
-                    if randint(0, 1):
+                    # 50/50
+                    if randint(0, 1) == 1:
                         # first move horizontally, then vertically
                         self.create_h_tunnel(prev_x, new_x, prev_y)
                         self.create_v_tunnel(prev_y, new_y, new_x)
+                    
                     else:
                         # first move vertically, then horizontally
                         self.create_v_tunnel(prev_y, new_y, prev_x)
@@ -70,24 +80,24 @@ class GameMap:
                 num_rooms += 1
 
 
-
     def create_room(self, room):
         # makes passable tiles in a rectangle
         for x in range(room.x1 + 1, room.x2):
             for y in range(room.y1 + 1, room.y2):
                 self.tiles[x][y].blocked = False
                 self.tiles[x][y].block_sight = False
-
     
     def create_h_tunnel(self, x1, x2, y):
         for x in range(min(x1, x2), max(x1, x2) + 1):
             self.tiles[x][y].blocked = False
             self.tiles[x][y].block_sight = False
+        print("Created h tunnel")
 
     def create_v_tunnel(self, y1, y2, x):
         for y in range(min(y1, y2), max(y1, y2) + 1):
             self.tiles[x][y].blocked = False
             self.tiles[x][y].block_sight = False
+        print("Created v tunnel")
 
     def is_blocked(self, x, y):
         if self.tiles[x][y].blocked:

@@ -5,18 +5,20 @@ from entity import Entity
 from render_functions import render_all, clear_all
 from map_objects.game_map import GameMap
 
-def main():
-    
-    # variables
-    screen_height = 50
+def main():   
+    # Size of the screen
     screen_width = 80
-    map_height = 45
+    screen_height = 50
+    
+    # Size of the map
     map_width = 80
-
+    map_height = 45
+    
+    # Room variables
     room_max_size = 10
     room_min_size = 6
     max_rooms = 30
-
+    
     colors = {
         'dark_wall': libtcod.Color(0, 0, 100),
         'dark_ground': libtcod.Color(50, 50, 150)
@@ -33,7 +35,7 @@ def main():
     libtcod.console_init_root(screen_width, screen_height, 'libtcod tutorial revised', False)
     
     # new console
-    con = libtcod.console_new(screen_width, screen_height)
+    con = libtcod.console.Console(screen_width, screen_height)
     
     # Initialise game map
     game_map = GameMap(map_width, map_height)
@@ -66,18 +68,18 @@ def main():
         exit = action.get('exit')
         fullscreen = action.get('fullscreen')
         
-        # moves the character
         if move:
+            # moves the character
             dx, dy = move
             if not game_map.is_blocked(player.x + dx, player.y + dy):
                 player.move(dx, dy)
 
-        # exits the game
         if exit:
+            # exits the game
             return True
         
-        # makes game fullscreen
         if fullscreen:
+            # makes game fullscreen
             libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
 
 if __name__ == '__main__':
