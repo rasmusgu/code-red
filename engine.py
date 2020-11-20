@@ -19,6 +19,15 @@ def main():
     room_min_size = 6
     max_rooms = 30
     
+    # Field of view (fov) variables
+    # 0 is the default algorithm tcod uses. Experiment!
+    fov_algorithm = 0
+    # lights up walls that are seen
+    fov_light_walls = True
+    # how far you can see
+    fov_radius = 10
+    
+    # Colors
     colors = {
         'dark_wall': libtcod.Color(0, 0, 100),
         'dark_ground': libtcod.Color(50, 50, 150)
