@@ -11,3 +11,6 @@ class Tile:
             block_sight = blocked
 
         self.block_sight = block_sight
+        
+        # Variable for exploring the map
+        self.explored = False
