@@ -7,7 +7,7 @@ from game_messages import Message
 
 def kill_player(player):
     player.char = '%'
-    player.color = libtcod.dark.red
+    player.color = libtcod.dark_red
 
     return Message('You died!', libtcod.red), GameStates.PLAYER_DEAD
 
