@@ -6,6 +6,7 @@ from render_functions import render_all, clear_all
 from map_objects.game_map import GameMap
 from fov_functions import initialise_fov, recompute_fov
 from game_states import GameStates
+from components.fighter import Fighter
 
 def main():   
     # Size of the screen
@@ -39,7 +40,8 @@ def main():
         'light_ground': libtcod.Color(200, 180, 50)
     }
 
-    player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True)
+    fighter_component = Fighter(hp=30, defense=2, power=5)
+    player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True, fighter=fighter_component)
     entities = [player]
 
     # font settings
@@ -123,8 +125,9 @@ def main():
         
         if game_state == GameStates.ENEMY_TURN:
             for entity in entities:
-                if entity != player:
-                    print('The ' + entity.name + ' ponders the meaning of its existence.')
+                if entity.ai:
+                    entity.ai.take_turn()
+
             game_state = GameStates.PLAYERS_TURN
 
 if __name__ == '__main__':
