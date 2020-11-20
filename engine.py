@@ -10,7 +10,7 @@ from components.fighter import Fighter
 from death_functions import kill_monster, kill_player
 from game_messages import MessageLog
 from components.inventory import Inventory
-
+from game_messages import Message, MessageLog
 
 def main():   
     # Size of the screen
@@ -137,6 +137,16 @@ def main():
                     fov_recompute = True
                 
                 game_state = GameStates.ENEMY_TURN
+        
+        elif pickup and game_state == GameStates.PLAYERS_TURN:
+            for entity in entities:
+                if entity.item and entity.x == player.x and entity.y -- player.y:
+                    pickup_results = player.inventory.add_item(entity)
+                    player_turn_results.extend(pickup_results)
+
+                    break
+            else:
+                message_log.add_message(Message('There is nothing here to pick up.', libtcod.yellow))
 
         if exit:
             # exits the game
@@ -147,8 +157,10 @@ def main():
             libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
         
         for player_turn_result in player_turn_results:
+            # Events happening during player turn
             message = player_turn_result.get('message')
             dead_entity = player_turn_result.get('dead')
+            item_added = player_turn_result.get('item_added')
 
             if message:
                 message_log.add_message(message)
@@ -160,6 +172,10 @@ def main():
                     message = kill_monster(dead_entity)
 
                 message_log.add_message(message)
+            if item_added:
+                entities.remove(item_added)
+
+                game_state = GameStates.ENEMY_TURN
 
         if game_state == GameStates.ENEMY_TURN:
             for entity in entities:
