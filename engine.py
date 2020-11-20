@@ -19,6 +19,10 @@ def main():
     bar_width = 20
     panel_height = 7
     panel_y = screen_height - panel_height
+    
+    message_x = bar_width + 2
+    message_width = screen_width - bar_width - 2
+    message_height = panel_height - 1
 
     # Size of the map
     map_width = 80
