@@ -7,6 +7,7 @@ class BasicMonster:
         results = []
 
         monster = self.owner
+
         if libtcod.map_is_in_fov(fov_map, monster.x, monster.y):
 
             if monster.distance_to(target) >= 2:
