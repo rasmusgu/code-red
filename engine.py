@@ -4,6 +4,7 @@ from input_handlers import handle_keys
 from entity import Entity
 from render_functions import render_all, clear_all
 from map_objects.game_map import GameMap
+from fov_functions import initialise_fov, recompute_fov
 
 def main():   
     # Size of the screen
@@ -54,6 +55,8 @@ def main():
     
     # Variable for whether fov check is necessary or not. For example, when standing still or attacking, fov recalculation is unnecessary. "True" by default because we need to compute fov as the game starts
     fov_recompute = True
+    
+    fov_map = initialise_fov(game_map)
 
     # input storage variables
     key = libtcod.Key()
@@ -65,8 +68,14 @@ def main():
         #captures inputs
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS, key, mouse)
         
+        if fov_recompute:
+            recompute_fov(fov_map, player.x, player.y, fov_radius, fov_light_walls, fov_algorithm)
+
         # renders all called upon entities
-        render_all(con, entities, game_map, screen_width, screen_height, colors)
+        render_all(con, entities, game_map, fov_map, fov_recompute, screen_width, screen_height, colors)
+        
+        # Set to False after initial render_all
+        fov_recompute = False
 
         # refreshes screen
         libtcod.console_flush()
@@ -87,6 +96,7 @@ def main():
             dx, dy = move
             if not game_map.is_blocked(player.x + dx, player.y + dy):
                 player.move(dx, dy)
+                fov_recompute = True
 
         if exit:
             # exits the game
