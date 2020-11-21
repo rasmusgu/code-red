@@ -111,7 +111,7 @@ def main():
         clear_all(con, entities)
 
         # new variable for handle_keys function from other file
-        action = handle_keys(key)
+        action = handle_keys(key, game_state)
         
         # actions
         move = action.get('move')
@@ -156,6 +156,7 @@ def main():
             previous_game_state = game_state
             game_state = GameStates.SHOW_INVENTORY
 
+        # Allows player to use items if not dead
         if inventory_index is not None and previous_game_state != GameStates.PLAYER_DEAD and inventory_index <len(player.inventory.items):
             item = player.inventory.items[inventory_index]
             # Placeholder
@@ -193,7 +194,8 @@ def main():
                 entities.remove(item_added)
 
                 game_state = GameStates.ENEMY_TURN
-
+        
+        # Enemy turn
         if game_state == GameStates.ENEMY_TURN:
             for entity in entities:
                 if entity.ai:
