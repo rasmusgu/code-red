@@ -86,6 +86,8 @@ def main():
 
     # Game state variable
     game_state = GameStates.PLAYERS_TURN
+    # allowing to exit menu without wasting turn
+    previous_game_state = game_state
 
     # main loop
     while not libtcod.console_is_window_closed():
@@ -97,7 +99,7 @@ def main():
             recompute_fov(fov_map, player.x, player.y, fov_radius, fov_light_walls, fov_algorithm)
 
         # renders all called upon entities
-        render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, screen_width, screen_height, bar_width, panel_height, panel_y, mouse, colors)
+        render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, screen_width, screen_height, bar_width, panel_height, panel_y, mouse, colors, game_state)
         
         # Set to False after initial render_all
         fov_recompute = False
@@ -114,6 +116,7 @@ def main():
         # actions
         move = action.get('move')
         pickup = action.get('pickup')
+        show_inventory = action.get('show_inventory')
         exit = action.get('exit')
         fullscreen = action.get('fullscreen')
         
@@ -148,9 +151,17 @@ def main():
             else:
                 message_log.add_message(Message('There is nothing here to pick up.', libtcod.yellow))
 
+        if show_inventory:
+            previous_game_state = game_state
+            game_state = GameStates.SHOW_INVENTORY
+
         if exit:
-            # exits the game
-            return True
+            if game_state == GameStates.SHOW_INVENTORY:
+                # closes menu
+                game_state = previous_game_state
+            else:
+                # exits the game
+                return True
         
         if fullscreen:
             # makes game fullscreen
